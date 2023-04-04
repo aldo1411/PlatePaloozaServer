@@ -1,7 +1,7 @@
 import User from "../schemas/User.js"
-import { userSchema } from "../schemas/joi_schemas/User.js"
-import { alreadyExistsMessage, createdMessage, somethigWentWrongMessage, userNotFoundMessage, userRepeatedMessage } from "../utils/messages.js"
-import { assignDefaultRole, compareHash, encriptPassword, verifyEmail, verifyUsername } from "../utils/usersUtils.js"
+import { userSchema, updateUserSchema } from "../schemas/joi_schemas/User.js"
+import { alreadyExistsMessage, createdMessage, incorrecLoginMessage, somethigWentWrongMessage, succesfullLoginMessage, userNotFoundMessage, userRepeatedMessage } from "../utils/messages.js"
+import { assignDefaultRole, compareHash, encriptPassword, generateToken, isEmailAuth, verifyEmail, verifyUsername } from "../utils/usersUtils.js"
 
 /**
  * saves a user on database
@@ -34,13 +34,23 @@ const saveUser = async (req, res) => {
     await newUser.save()
   }catch(e){
     console.error(e)
-    return res.status(500).json({message: somethigWentWrongMessage})
+    return res.status(500).json({message: somethigWentWrongMessage()})
   }
 
-  return res.status(201).json({message: createdMessage('user'), data: { id: newUser._id }})
+  return res.status(201).json({message: createdMessage('user'), resultSet: { id: newUser._id }})
 }
 
 const updateUser = (req, res) => {
+  const {error} = updateUserSchema.validate(req.body)
+
+  if (!req.params.userId) {
+    return res.status(400).json({ message: badRequestMessage() });
+  }
+  if(error){
+    return res.status(400).json({message: error.message})
+  }
+
+  
 
 }
 
@@ -48,21 +58,17 @@ const removeUser = (req, res) => {
 
 }
 
-const getUser = (req, res) => {
-
-}
-
-const getUsersByName = (req, res) => {
-
-}
-
-const getUserByEmail = (req, res) => {
-
-}
-
+/**
+ * authenticates user by email or username if password is correct
+ * @param {*} req http request
+ * @param {*} res http response
+ * @returns {Response} repsonse with status code and message and jwt token if passwod is correct
+ */
 const login = async (req, res) => {
-  const user = { email: req.body.email, password: req.body.password }
-  const exists = await verifyEmail(user.email)
+  const user = { account: req.body.account, password: req.body.password }
+  let exists
+
+  isEmailAuth(user.account) ? exists = await verifyEmail(user.account) : exists = await verifyUsername(user.account)  
 
   if(!exists){
     return res.status(404).json({message: userNotFoundMessage(user.email)})
@@ -70,10 +76,24 @@ const login = async (req, res) => {
 
   try {
     const passwordIsCorrect = await compareHash(user.password, exists.password)
-    console.log(passwordIsCorrect)
+    
+    if(passwordIsCorrect){
+      const userId = exists._id.toString()
+      const roles = exists.roles.map(role => role.toString())
+
+      const payload = {
+        userId: userId,
+        userName: user.userName,
+        roles: roles
+      }
+
+      return res.status(200).json({message: succesfullLoginMessage(), token: generateToken(payload)})
+    }else{
+      return res.status(401).json({message: incorrecLoginMessage()})
+    }
   } catch (error) {
     console.error(error)
-    return res.status(500).json({message: somethigWentWrongMessage})
+    return res.status(500).json({message: somethigWentWrongMessage()})
   }
 }
 

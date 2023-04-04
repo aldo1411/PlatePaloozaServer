@@ -5,6 +5,7 @@ const listenAppMsg = port => `🚀 The server has been mounted in.
 🎉 Happy hacking :)
 `
 
+
 /*------        user messages      ------*/ 
 
 /**
@@ -22,6 +23,7 @@ const userRepeatedMessage = (email) => `user with email ${email} already exists`
 const userNotFoundMessage = (email) => `user with email ${email} does not exists`
 
 
+
 /*------        role messages      ------*/ 
 
 /**
@@ -37,7 +39,29 @@ const roleRepeatedMessage = (role) => `role with name ${role} already exists`
  * @param {String} roleName rolename
  * @returns {String} a message advising that the user already has the role requested to assign
  */
-const roleRepeatedOnUserMessage = (username, roleName) => `user with username "${username}" already has role with name "${roleName}"`
+const roleRepeatedOnUserMessage = (userName, roleName) => `user with username "${userName}" already has role with name "${roleName}"`
+
+/**
+ * funtion to use when a user does not have a role
+ * @param {String} roleName role name
+ * @returns ra message advising that the user does not have the role requested
+ */
+const roleNotIncludedInUser = (roleName) => `user does not have role ${roleName}`
+
+/**
+ * function to use when a role has been added to a user
+ * @param {String} roleName role name
+ * @returns a message advising that the role has been added to a user
+ */
+
+const roleAddedMessage = (roleName) => `role ${roleName} added succesfully to user` 
+
+/**
+ * function to use when a role has been removed from user
+ * @param {String} roleName role name
+ * @returns a message advising that the role has been removed from the user
+ */
+const roleRemovedMessage = (roleName) => `role ${roleName} removed succesfully from user`
 
 
 
@@ -74,6 +98,15 @@ const notFoundMessage = (objectType, attribute, missingAttribute) => `${objectTy
  */
 const alreadyExistsMessage = (objectType, attribute, repeatedAttibute) => `${objectType} with ${attribute} "${repeatedAttibute}" already exists`
 
+const badRequestMessage = () => `Upss... it seems that you request has been not done correctly, please check your data and try again`
+
+
+
+/*------        login messages      ------*/
+
+const succesfullLoginMessage = () => `Succesfull login!`
+
+const incorrecLoginMessage = () => `Passwod or email/user incorrect`
 
 export {
     listenAppMsg,
@@ -81,7 +114,14 @@ export {
     userRepeatedMessage,
     userNotFoundMessage,
     roleRepeatedMessage,
+    roleRepeatedOnUserMessage,
+    roleNotIncludedInUser,
+    roleAddedMessage,
+    roleRemovedMessage,
     somethigWentWrongMessage,
     notFoundMessage,
-    alreadyExistsMessage
+    alreadyExistsMessage,
+    badRequestMessage,
+    succesfullLoginMessage,
+    incorrecLoginMessage
 }

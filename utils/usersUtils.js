@@ -38,6 +38,21 @@ const verifyUsername = async (userName) => {
 }
 
 /**
+ * verifies if the user exists by an id passed
+ * @param {String} userId user id
+ * @returns true if user exists, false if not
+ */
+const verifyUserById = async (userId) => {
+  try {
+    const exists = await User.findById(userId)
+    return exists ? exists : false
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+/**
  * hashes the password given a plain password
  * @param {String} plainPassword - plain password
  * @returns {Promise} a promise that if succeed will return the password
@@ -56,6 +71,12 @@ const encriptPassword = (plainPassword) => {
   })
 }
 
+/**
+ * compares two hashes and returns true if they mathch
+ * @param {*} plainPassword plan password to compare with hash
+ * @param {*} hash hash to compare with plain password
+ * @returns true if the plain text matches with the hash
+ */
 const compareHash = (plainPassword, hash) =>{
   return new Promise((resolve, reject) =>{
     bcrypt.compare(plainPassword, hash, (err, result) => {
@@ -85,14 +106,35 @@ const assignDefaultRole = async (user) => {
   user.roles = [role._id]
 }
 
-const generateToken = () => {
+/**
+ * generates jwt token for authentication
+ * @param {*} payload payload for the json web token
+ * @returns jwt token signed
+ */
+const generateToken = (payload) => {
+  const secretKey = process.env.SECRET_TOKEN_KEY
+
+  return jwt.sign(payload, secretKey)
+}
+
+/**
+ * checks if user is attempting email auth or username auth
+ * @param {string} user user account (could be username or email)
+ * @returns true if user is attempting email auth, false if not
+ */
+const isEmailAuth = (user) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
+  return regex.test(user) 
 }
 
 export {
   verifyEmail,
   verifyUsername,
+  verifyUserById,
   encriptPassword,
   compareHash,
-  assignDefaultRole
+  assignDefaultRole,
+  generateToken,
+  isEmailAuth
 }

@@ -16,7 +16,18 @@ const userToRoleSchema = Joi.object({
   roleName: Joi.string().required()
 });
 
+const updateUserSchema = Joi.object({
+  userName: Joi.string().max(50).min(1),
+  name: Joi.string().max(50).min(1),
+  lastName: Joi.string().max(50).min(1),
+  birthDay: Joi.date(),
+  email: Joi.string().email(),
+  password: Joi.string(),
+  image: Joi.string()
+});
+
 export {
   userSchema,
-  userToRoleSchema
+  userToRoleSchema,
+  updateUserSchema
 };

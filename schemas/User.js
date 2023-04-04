@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role'
   }],
-  username: {
+  userName: {
     type: String,
     required: true,
   },
