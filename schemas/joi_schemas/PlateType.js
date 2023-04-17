@@ -5,4 +5,11 @@ const plateTypeSchema = Joi.object({
   author: Joi.string().required(),
 });
 
-export default plateTypeSchema;
+const plateTypeUpdateSchema = Joi.object({
+  description: Joi.string().max(150).min(1),
+})
+
+export {
+  plateTypeSchema,
+  plateTypeUpdateSchema
+};

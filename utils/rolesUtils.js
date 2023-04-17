@@ -29,8 +29,7 @@ const verifyRoleById = async (roleId) => {
     return false
   }
 }
-
 export {
   verifyRole,
-  verifyRoleById
+  verifyRoleById,
 }
