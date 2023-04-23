@@ -22,7 +22,7 @@ const login = async (req, res) => {
     
     if(passwordIsCorrect){
       const userId = exists._id.toString()
-      const roles = exists.roles.map(role => role.toString())
+      const roles = exists.roles
 
       const payload = {
         userId: userId,

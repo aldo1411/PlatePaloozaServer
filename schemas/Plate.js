@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const plateSchema = new mongoose.Schema({
+  unsubscribed: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   active: {
     type: Boolean,
     required: false,
@@ -34,9 +39,9 @@ const plateSchema = new mongoose.Schema({
     ref: 'PlateType'
   },
   ingredients: {
-    type: [String],
+    type: [],
     required: true
-},
+  },
 }, {
   collection: 'Plates',
 });

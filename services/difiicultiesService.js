@@ -2,7 +2,7 @@ import Difficulty from "../schemas/Difficulty.js"
 import difficultySchema from "../schemas/joi_schemas/Difficulty.js"
 import { searchDifficultiesByDescription } from "../utils/difficultyUtils.js"
 import { alreadyActive, alreadyExistsMessage, alreadyUnactive, badRequestMessage, createdMessage, noContentMessage, nonUpdatedFields, notFoundMessage, somethigWentWrongMessage, succeslfullRequestMessage, updatedMessage, updatedObjectAlreadyExistsMessage } from "../utils/messages.js"
-import { getUpdatedObject } from "../utils/utils.js"
+import { checkMongoId ,getUpdatedObject } from "../utils/utils.js"
 
 /**
  * gets all difficulties given a query from db and sends them to user
@@ -16,16 +16,6 @@ const getDifficultiesByDescription = async (req, res) => {
   const description = req.query.description
 
   try {
-    if(!description){
-      const difficulties = await Difficulty.find()
-
-      if(difficulties.length != 0){
-        return res.status(200).json( {message: succeslfullRequestMessage(), resultSet: difficulties} )
-      }else{
-        return res.status(200).json({ message: noContentMessage(), resultSet: difficulties})
-      }
-    }
-
     const difficulties = await searchDifficultiesByDescription(description)
     if(difficulties.length != 0){
       return res.status(200).json({ message: succeslfullRequestMessage(), resultSet: difficulties}) 

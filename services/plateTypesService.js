@@ -16,17 +16,6 @@ const getPlatTypesByDescription = async (req, res) => {
   const description = req.query.description
 
   try {
-    if(!description){
-      const plateTypes = await PlateType.find().populate({path: 'author', select: 'userName'})
-
-      if (plateTypes.length != 0){
-        return res.status(200).json( {message: succeslfullRequestMessage(), resultSet: plateTypes} )
-      }else{
-        return res.status(200).json({ message: noContentMessage(), resultSet: plateTypes})
-
-      }
-    }
-
     const plateTypes = await searchPlateTypeByDescription(description)
     if (plateTypes.length != 0){
       return res.status(200).json({ message: succeslfullRequestMessage(), resultSet: plateTypes}) 
@@ -58,10 +47,6 @@ const savePlateType = async (req, res) => {
     const existPlateType = await PlateType.findOne({ description: req.body.description })
     if(existPlateType){
       return res.status(409).json({message: alreadyExistsMessage('plate type', 'description', req.body.description)})
-    }
-
-    if(checkMongoId(req.body.author)){
-      return res.status(401).json({ message: userInfoDamagedMessage() })
     }
 
     newPlateType = new PlateType(req.body)

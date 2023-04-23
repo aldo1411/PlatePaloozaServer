@@ -56,6 +56,8 @@ If everything works, you should see a message like this
 ```
 
 
+
+
 ## Documentation
 
 Tech stack used:
@@ -66,9 +68,13 @@ Tech stack used:
 Database diagram: see ``` database_diagram.jpg ``` file
 
 
+
 ## API Reference
 
-#### Post user
+### **Users and Roles**
+<br />
+
+### ***Post user***
 
 This endpoint will post a user. It will auto encrypt the password, and generate the necessary metadata for the database.
 
@@ -86,9 +92,12 @@ This endpoint will post a user. It will auto encrypt the password, and generate 
 | `password` | `string` | **Required**. user's password  |
 | `image`    | `string` | **Required**. user's url image |
 
--------------------------------------------------------------------
+<br />
 
-#### Add role to user
+-------------------------------------------------------------------
+<br />
+
+### ***Add role to user***
 
 This enpoint will add a existing role to a existing user. Note that when a user is posted automatically the service will add a default role 'user' from the database to the user
 
@@ -101,9 +110,12 @@ This enpoint will add a existing role to a existing user. Note that when a user 
 | `userName` | `string` | **Required**. username of the user |
 | `roleName` | `string` | **Required**. rolename of the role |
 
--------------------------------------------------------------------
+<br />
 
-#### Post role
+-------------------------------------------------------------------
+<br />
+
+#### ***Post role***
 
 This enpoint will create a new role on the database
 
@@ -115,9 +127,12 @@ This enpoint will create a new role on the database
 | :--------  | :------- | :--------------------------------- |
 | `roleName` | `string` | **Required**. rolename of the role |
 
--------------------------------------------------------------------
+<br />
 
-#### Post role
+-------------------------------------------------------------------
+<br />
+
+### ***Delete role***
 
 This enpoint will remove a role from a user
 
@@ -133,9 +148,12 @@ This enpoint will remove a role from a user
 | :--------  | :------- | :--------------------------------- |
 | `roleId`   | `string` | **Required**. role id from role    |
 
--------------------------------------------------------------------
+<br />
 
-#### Post role
+-------------------------------------------------------------------
+<br />
+
+### ***Login***
 
 This enpoint will login a user and return a jsonwebtoken with a payload that contains the user's roles, id and username. The user can login with email or username
 
@@ -148,14 +166,15 @@ This enpoint will login a user and return a jsonwebtoken with a payload that con
 | `account`  | `string` | **Required**. could be username or      email    |
 | `password` | `string` | **Required**. user's password      |
 
+<br />
 
 -------------------------------------------------------------------
+<br />
 
--------------------------------------------------------------------
+### **Plate Types**
+<br />
 
-### Plate Types
-
-### Get plate types
+### ***Get plate types***
 
 This endpoint will return the plate types on database given a query via url. If query is not passed then it wll return all the plate types from databse
 
@@ -168,9 +187,12 @@ This endpoint will return the plate types on database given a query via url. If 
 | `description` | `string` | plate type description             |
 
 
--------------------------------------------------------------------
+<br />
 
-#### Post plate Type
+-------------------------------------------------------------------
+<br />
+
+### ***Post plate Type***
 
 This endpoint will create a new plate type, it will check that the new plate type is not repeated on database and will also validate if the data passed through body is correct
 
@@ -183,9 +205,12 @@ This endpoint will create a new plate type, it will check that the new plate typ
 | `description` | `string` | **Required**. description of the plate type    |
 | `author` | `string` | **Required**. user's id that created the object      |
 
--------------------------------------------------------------------
+<br />
 
-#### Update plate type
+-------------------------------------------------------------------
+<br />
+
+### ***Update plate type***
 
 This endpoint will update a existing plate type and will check if the plate type exists, if the new updated data does'nt correspond to another plate type on database, if the new data does'nt change anything from the plate type to update and will validate if the data passed through the body is correct
 
@@ -201,9 +226,12 @@ This endpoint will update a existing plate type and will check if the plate type
 | :--------         | :------- | :--------------------------------- |
 | `description`   | `string` | **Required**. description from plate type    |
 
--------------------------------------------------------------------
+<br />
 
-#### Delete plate type
+-------------------------------------------------------------------
+<br />
+
+### ***Delete plate type***
 
 This endpoint will set the property "active" to false from plate type on database simulating a delete, this plate type will no longer apear on get requests
 
@@ -215,9 +243,12 @@ This endpoint will set the property "active" to false from plate type on databas
 | :--------  | :------- | :--------------------------------- |
 | `id`       | `string` | **Required**. id from plate type   |
 
--------------------------------------------------------------------
+<br />
 
-#### Activate plate type
+-------------------------------------------------------------------
+<br />
+
+### ***Activate plate type***
 
 This endpoint will set the property "active" to true from plate type on database, this plate type will appear again get requests
 
@@ -229,11 +260,15 @@ This endpoint will set the property "active" to true from plate type on database
 | :--------  | :------- | :--------------------------------- |
 | `id`       | `string` | **Required**. id from plate type   |
 
+<br />
+
 -------------------------------------------------------------------
+<br />
 
-### Difficulties
+### **Difficulties**
+<br />
 
-### Get difficulties
+### ***Get difficulties***
 
 This endpoint will return the difficulties on database given a query via url. If query is not passed then it wll return all the difficulties from database
 
@@ -246,9 +281,12 @@ This endpoint will return the difficulties on database given a query via url. If
 | `description` | `string` | difficulty description             |
 
 
--------------------------------------------------------------------
+<br />
 
-#### Post difficulty
+-------------------------------------------------------------------
+<br />
+
+### ***Post difficulty***
 
 This endpoint will create a new difficulty, it will check that the new difficulty is not repeated on database and will also validate if the data passed through body is correct
 
@@ -260,9 +298,12 @@ This endpoint will create a new difficulty, it will check that the new difficult
 | :--------     | :------- | :--------------------------------- |
 | `description` | `string` | **Required**. description of dificulty    |
 
--------------------------------------------------------------------
+<br />
 
-#### Update difficulty
+-------------------------------------------------------------------
+<br />
+
+### ***Update difficulty***
 
 This endpoint will update a existing difficulty and will check if the difficulty exists, if the new updated data does'nt correspond to another difficulty on database, if the new data does'nt change anything from the difficulty to update and will validate if the data passed through the body is correct
 
@@ -278,9 +319,12 @@ This endpoint will update a existing difficulty and will check if the difficulty
 | :--------         | :------- | :--------------------------------- |
 | `description`   | `string` | **Required**. description from difficulty    |
 
--------------------------------------------------------------------
+<br />
 
-#### Delete difficulty
+-------------------------------------------------------------------
+<br />
+
+### ***Delete difficulty***
 
 This endpoint will set the property "active" to false from difficulty on database simulating a delete, this difficulty will no longer apear on get requests
 
@@ -292,9 +336,12 @@ This endpoint will set the property "active" to false from difficulty on databas
 | :--------  | :------- | :--------------------------------- |
 | `id`       | `string` | **Required**. id from difficulty   |
 
--------------------------------------------------------------------
+<br />
 
-#### Activate difficulty
+-------------------------------------------------------------------
+<br />
+
+#### ***Activate difficulty***
 
 This endpoint will set the property "active" to true from difficulty on database, this difficulty will appear again get requests
 
@@ -306,15 +353,149 @@ This endpoint will set the property "active" to true from difficulty on database
 | :--------  | :------- | :--------------------------------- |
 | `id`       | `string` | **Required**. id from difficulty   |
 
+<br />
+
 -------------------------------------------------------------------
+<br />
+
+### **Plates**
+<br />
+
+### ***Get plates***
+
+This endpoint will return the plates on database given a query via url. If query is not passed then it wll return all the plate types from databse
+
+```http
+  GET /api/plates/?name
+```
+
+| Query         | Type     | Description   |
+| :--------     | :------- |:------------- |
+| `name`        | `string` | plate name    |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Post plate***
+
+This endpoint will create a new plate
+
+```http
+  POST /api/plates/
+```
+
+| Body      | Type     | Description   |
+| :-------- | :------- | :------------ |
+| `name`    | `string` | **Required**. name of the plate |
+| `author`  | `string` | **Required**. user's id that created the object |
+| `plateType` | `string` | **Required**. plate type's id that created the object |
+| `ingredients` | `array[]` | **Required**. plate's ingredients |
+
+###### ****note***
+The objects that go in the array of ingredients **must** follow the following structure
+
+| Attribute      | Type     | Description   |
+| :-------- | :------- | :------------ |
+| `quantity`    | `number` | **Required**. quantity of the ingredient |
+| `measure` | `string` | **Required**. if the ingredient has a meassure, then add it (ml, mg, oz, etc.) |
+| `ingredient` | `string` | **Required**. ingredient's name |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Update plate***
+
+This endpoint will update an existing plate and will check if the plate exists, if the new updated data does'nt correspond to another plate on database, if the new data does'nt change anything from the plate to update and will validate if the data passed through the body is correct
+
+```http
+  PATCH /api/plates/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from plate        |
+
+| Body          | Type      | Description                     |
+| :----------   | :-------  | :------------------------------ |
+| `name`        | `string`  | name from plate                 |
+| `plateType`   | `string`  | plate type from plate           |
+| `ingredients` | `array[]` | plate's ingredients             |
+
+###### ****note***
+The objects that go in the array of ingredients **must** follow the following structure
+
+| Attribute      | Type     | Description   |
+| :-------- | :------- | :------------ |
+| `quantity`    | `number` | **Required**. quantity of the ingredient |
+| `measure` | `string` | **Required**. if the ingredient has a meassure, then add it (ml, mg, oz, etc.) |
+| `ingredient` | `string` | **Required**. ingredient's name 
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Archieve plate***
+
+This endpoint will set the property "active" to false from plate on database, this plate will no longer apear on get request
+
+```http
+  PATCH /api/plates/archieve/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from plate        |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Unarchieve plate***
+
+This endpoint will set the property "active" to true from plate on database, this plate will appear again get requests
+
+```http
+  PATCH /api/difficulties/unarchieve/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from plate        |
 
 
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Activate plate***
+
+This endpoint will delete a plate from database
+
+```http
+  DELETE /api/plates/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from plate        |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
 
 ## Contributing
 
 Contributions are always welcome!
 
-Contact me if you want to contrbute :)
+Contact me if you want to contribute :)
   * via discord aldo1411#4286
   * via email: lozanotaldo@gmail.com
 

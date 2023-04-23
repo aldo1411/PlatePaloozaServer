@@ -1,28 +1,30 @@
 import jwt from 'jsonwebtoken';
-import { accessDeniedMessage, forbiddenAccessMessage, somethigWentWrongMessage } from '../utils/messages';
+import { accessDeniedMessage, forbiddenAccessMessage, somethigWentWrongMessage } from '../utils/messages.js';
 import { config } from "dotenv"
 
 config()
 
-const verifyTokenForPostActions = (req, res, next) => {
-  const token = req.header('auth-token')
-  if(!token) return res.status(401).send({ message: accessDeniedMessage() })
+const verifyToken = async (req, res, next) => {
+  const authHeader = req.headers.authorization
+  if (!authHeader) return res.status(401).send({ message: accessDeniedMessage() })
     
-  try{
-    jwt.verify(token, process.env.SECRET_TOKEN_KEY, (err, payload) => {
-      if(err){
-        return res.status(401).json({ message: accessDeniedMessage()})
-      }
+  const token = authHeader.split(' ')[1];
 
-      if(payload.roles.includes('user' || 'admin')){
-        next()
-      }else{
-        return res.status(403).json({ message: forbiddenAccessMessage() })
-      }
-
-    })
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
+    req.user = {
+      id: decodedToken.userId,
+      roles: decodedToken.roles
+    }
+    
+    if (decodedToken.roles.some(role => role.name === 'user' || role.name === 'admin')) {
+      next();
+    } else {
+      return res.status(403).json({ message: forbiddenAccessMessage() });
+    }
   }catch(err){
-    res.status(400).send({ msg: somethigWentWrongMessage() })
+    console.error(err)
+    res.status(500).send({ msg: somethigWentWrongMessage() })
   }
 }
 

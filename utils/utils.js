@@ -46,8 +46,30 @@ const getUpdatedObject = (existing, updated) => {
 }
 
 
+const userIsAuthor = (userId, existingObject) => {
+  if(existingObject.author.toString() === userId){
+    
+    console.log('is author')
+    return true
+  }else{
+    console.log('is not author')
+    return false
+  }
+}
+
+const userIsAdmin = (roles) => {
+  if(roles.some(role => role.name === 'admin')){
+    console.log('is admin')
+    return true
+  }else{
+    console.log('is not admin')
+    return false
+  }
+}
 
 export {
   checkMongoId,
-  getUpdatedObject
+  getUpdatedObject,
+  userIsAuthor,
+  userIsAdmin
 }

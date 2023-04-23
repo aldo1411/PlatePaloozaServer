@@ -7,4 +7,13 @@ const plateSchema = Joi.object({
   ingredients: Joi.array().required(),
 });
 
-export default plateSchema;
+const plateUpdateSchema = Joi.object({
+  name: Joi.string().max(50).min(1),
+  plateType: Joi.string().max(50).min(1),
+  ingredients: Joi.array(),
+});
+
+export {
+  plateSchema,
+  plateUpdateSchema
+};

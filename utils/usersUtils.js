@@ -14,7 +14,7 @@ config()
  */
 const verifyEmail = async (email) => {
   try {
-    const exists = await User.findOne({email: email})
+    const exists = await User.findOne({email: email}).populate({ path: 'roles' })
     return exists ? exists : false
   } catch (error) {
     console.log(error)
@@ -29,7 +29,7 @@ const verifyEmail = async (email) => {
  */
 const verifyUsername = async (userName) => {
   try {
-    const exists = await User.findOne({userName: userName})
+    const exists = await User.findOne({userName: userName}).populate({ path: 'roles' })
     return exists ? exists : false
   } catch (error) {
     console.log(error)

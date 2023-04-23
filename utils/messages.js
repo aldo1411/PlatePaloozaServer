@@ -81,6 +81,14 @@ const createdMessage = (object) => `${object} created succesfully`
  */
 const updatedMessage = (object) => `${object} updated succesfully`
 
+
+/**
+ * function to use when a object isdeleted
+ * @param {String} object the type of object that has been created
+ * @returns {String} a message saying that the object type has been deleted
+ */
+const deletedMessage = (object) =>  `The ${object} has been deleted succesfully`
+
 /**
  * function to use when a generic error happens
  * @returns {String} a generic message to unhandled errors
@@ -195,6 +203,7 @@ export {
     alreadyUnactive,
     createdMessage,
     updatedMessage,
+    deletedMessage,
     userRepeatedMessage,
     userNotFoundMessage,
     nonUpdatedFields,
