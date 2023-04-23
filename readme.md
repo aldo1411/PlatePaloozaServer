@@ -203,7 +203,6 @@ This endpoint will create a new plate type, it will check that the new plate typ
 | Body          | Type     | Description                        |
 | :--------     | :------- | :--------------------------------- |
 | `description` | `string` | **Required**. description of the plate type    |
-| `author` | `string` | **Required**. user's id that created the object      |
 
 <br />
 
@@ -389,7 +388,6 @@ This endpoint will create a new plate
 | Body      | Type     | Description   |
 | :-------- | :------- | :------------ |
 | `name`    | `string` | **Required**. name of the plate |
-| `author`  | `string` | **Required**. user's id that created the object |
 | `plateType` | `string` | **Required**. plate type's id that created the object |
 | `ingredients` | `array[]` | **Required**. plate's ingredients |
 
@@ -485,6 +483,153 @@ This endpoint will delete a plate from database
 | Parameters | Type     | Description                        |
 | :--------  | :------- | :--------------------------------- |
 | `id`       | `string` | **Required**. id from plate        |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### **Posts**
+<br />
+
+### ***Get posts***
+
+This endpoint will return the posts on database given a query via url. If query is not passed then it wll return all the posts from databse
+
+```http
+  GET /api/posts/?description
+```
+
+| Query         | Type     | Description         |
+| :--------     | :------- |:------------------- |
+| `description` | `string` | post description    |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Post post***
+
+This endpoint will create a post
+
+```http
+  POST /api/posts/
+```
+
+| Body         | Type     | Description                           |
+| :----------- | :------- | :------------------------------------ |
+| `desciption` | `string` | **Required**. description of the post |
+| `image`      | `string` | **Required**. post's image            |
+| `plate`      | `string` | **Required**. post's plate id from DB |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Update post***
+
+This endpoint will update an existing post and will check if the post exists, if the new data does'nt change anything from the post to update and will validate if the data passed through the body is correct
+
+```http
+  PATCH /api/posts/:id
+```
+
+| Body         | Type     | Description             |
+| :----------- | :------- | :---------------------- |
+| `desciption` | `string` | description of the post |
+| `plate`      | `string` | post's plate id from DB |
+
+| Parameters | Type     | Description                 |
+| :--------  | :------- | :-------------------------- |
+| `id`       | `string` | **Required**. id from post  |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Like post***
+
+This endpoint will add one like to the post desired.
+
+```http
+  PATCH /api/posts/likes/add/:id
+```
+
+| Parameters | Type     | Description                 |
+| :--------  | :------- | :-------------------------- |
+| `id`       | `string` | **Required**. id from post  |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Unlike post***
+
+This endpoint will subscribe one like to the post desired.
+
+```http
+  PATCH /api/posts/likes/add/:id
+```
+
+| Parameters | Type     | Description                 |
+| :--------  | :------- | :-------------------------- |
+| `id`       | `string` | **Required**. id from post  |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Archieve post***
+
+This endpoint will set the property "active" to false from post on database, this post will no longer apear on get request
+
+```http
+  PATCH /api/posts/archieve/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from post        |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Unarchieve plate***
+
+This endpoint will set the property "active" to true from plate on database, this plate will appear again get requests
+
+```http
+  PATCH /api/difficulties/unarchieve/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from plate        |
+
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Delete post***
+
+This endpoint will delete a post from database
+
+```http
+  DELETE /api/posts/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from post         |
 
 <br />
 

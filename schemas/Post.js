@@ -6,6 +6,11 @@ const postSchema = new mongoose.Schema({
     required: false,
     default: true
   },
+  unsubscribed: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   createdAt: {
     type: Date,
     required: false,
@@ -20,10 +25,6 @@ const postSchema = new mongoose.Schema({
     type: Boolean,
     required: false,
     default: false
-  },
-  name: {
-    type: String,
-    required: true,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

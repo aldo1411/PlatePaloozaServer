@@ -1,8 +1,8 @@
 import PlateType from "../schemas/PlateType.js"
 import { plateTypeSchema, plateTypeUpdateSchema } from "../schemas/joi_schemas/PlateType.js"
-import { searchPlateTypeByDescription } from "../utils/PlateTypeUtils.js"
+import { searchPlateTypeByDescription } from "../utils/plateTypeUtils.js"
 import { noContentMessage, succeslfullRequestMessage, alreadyExistsMessage, somethigWentWrongMessage, createdMessage, userInfoDamagedMessage, notFoundMessage, updatedMessage, badRequestMessage, nonUpdatedFields, updatedObjectAlreadyExistsMessage, alreadyActive, alreadyUnactive } from "../utils/messages.js"
-import { checkMongoId, getUpdatedObject } from "../utils/utils.js"
+import { getUpdatedObject } from "../utils/utils.js"
 
 /**
  * gets all plate types given a query from db and sends them to user
@@ -49,7 +49,7 @@ const savePlateType = async (req, res) => {
       return res.status(409).json({message: alreadyExistsMessage('plate type', 'description', req.body.description)})
     }
 
-    newPlateType = new PlateType(req.body)
+    newPlateType = new PlateType({...req.body, author: req.user.id})
     await newPlateType.save()
   }catch(e){
     console.error(e)

@@ -1,6 +1,6 @@
 import express from 'express'
 import { archievePlate, deletePlate, getPlatesByDescription, savePlate, unArchievePlate, updatePlate } from '../services/platesService.js'
-import verifyToken from '../middlewares/security.js'
+import { verifyToken } from '../middlewares/security.js'
 
 const platesRouter = express.Router()
 

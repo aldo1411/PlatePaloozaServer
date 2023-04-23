@@ -30,8 +30,7 @@ const getPlatesByDescription = async (req, res) => {
 }
 
 /**
- * save a new plate on db, checks if the user that creates it is valid and checks if the
- * plate type already exists
+ * saves a new plate on db
  * @param {*} req http request
  * @param {*} res http response
  * @returns response with status code, message and resultset 
@@ -46,7 +45,7 @@ const savePlate = async (req, res) => {
 
   try{ 
 
-    newPlate = new Plate(req.body)
+    newPlate = new Plate({...req.body, author: req.user.id})
     await newPlate.save()
   }catch(e){
     console.error(e)
@@ -63,6 +62,10 @@ const savePlate = async (req, res) => {
  * @returns response with status code and message
  */
 const updatePlate = async (req, res) => {
+  if (!req.params.id){
+    return res.status(400).json( {message: badRequestMessage()} )
+  }
+
   const {error} = plateUpdateSchema.validate(req.body)
   if(error){
     return res.status(400).json({message: error.message})
@@ -73,7 +76,7 @@ const updatePlate = async (req, res) => {
     return res.status(404).json({message: notFoundMessage('plate', 'id', req.params.id)})
   }
 
-  if(!userIsAuthor(req.user.id, existPlate) || !userIsAdmin(req.user.roles)){
+  if(!userIsAuthor(req.user.id, existPlate) && !userIsAdmin(req.user.roles)){
     return res.status(401).json({message: forbiddenAccessMessage()})
   }
 
@@ -127,7 +130,7 @@ const archievePlate = async (req, res) => {
 }
 
 /**
- * unarchieves a plate on database by setting the active property on false
+ * unarchieves a plate on database by setting the active property on true
  * @param {*} req http request
  * @param {*} res http response
  * @returns response with status code and message 
@@ -173,7 +176,7 @@ const deletePlate = async (req, res) => {
   }
 
   try{
-    const existsPlate = await Plate.findByIdAndDelete(req.params.id)
+    const existsPlate = Plate.findById(req.params.id)
     if(!userIsAuthor(req.user.id, existsPlate) && !userIsAdmin(req.user.roles)){
       return res.status(401).json({message: forbiddenAccessMessage()})
     }
@@ -182,6 +185,7 @@ const deletePlate = async (req, res) => {
       return res.status(404).json({message: notFoundMessage('plate', 'id', req.body.id)})
     }
 
+    await Plate.deleteOne({_id: req.params.id})
     return res.status(200).json({ message: deletedMessage('plate') })
   }catch(e){
     console.error(e)

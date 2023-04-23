@@ -28,4 +28,31 @@ const verifyToken = async (req, res, next) => {
   }
 }
 
-export default verifyToken
+const verifyAdminToken = async (req, res, next) => {
+  const authHeader = req.headers.authorization
+  if (!authHeader) return res.status(401).send({ message: accessDeniedMessage() })
+    
+  const token = authHeader.split(' ')[1];
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
+    req.user = {
+      id: decodedToken.userId,
+      roles: decodedToken.roles
+    }
+    
+    if (decodedToken.roles.some(role => role.name === 'admin')) {
+      next();
+    } else {
+      return res.status(403).json({ message: forbiddenAccessMessage() });
+    }
+  }catch(err){
+    console.error(err)
+    res.status(500).send({ msg: somethigWentWrongMessage() })
+  }
+}
+
+export {
+  verifyToken,
+  verifyAdminToken
+}
