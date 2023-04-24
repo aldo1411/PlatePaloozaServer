@@ -64,6 +64,8 @@ Tech stack used:
   * NodeJs
   * ExpressJs
   * MongoDB (with mongoose)
+  
+Version: 1.0.0
 
 Database diagram: see ``` database_diagram.jpg ``` file
 
