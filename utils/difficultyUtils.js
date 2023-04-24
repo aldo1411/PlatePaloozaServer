@@ -1,24 +1,24 @@
-import Difficulty from "../schemas/Difficulty.js"
+import Difficulty from '../schemas/Difficulty.js';
 
 /**
- * searches diffieculties by description on database using a case insensitive regex, if no description is 
+ * searches diffieculties by description on database using a case insensitive regex, if no description is
  * passed, then it sends all the difficulties
  * @param {*} description description from difficulty
- * @returns a list of similar matches from difficulty descrition
+ * @return a list of similar matches from difficulty descrition
  */
 const searchDifficultiesByDescription = async (description) => {
-  let difficulties
+  let difficulties;
 
-  if (description != null || description != undefined){
-    const query = new RegExp(description, 'i')
-    difficulties = await Difficulty.find({ description: query, active: true })
-  } else{
-    difficulties = await Difficulty.find() 
+  if (description != null || description != undefined) {
+    const query = new RegExp(description, 'i');
+    difficulties = await Difficulty.find({description: query, active: true});
+  } else {
+    difficulties = await Difficulty.find();
   }
 
-  return difficulties 
-}
+  return difficulties;
+};
 
 export {
-  searchDifficultiesByDescription
-}
+  searchDifficultiesByDescription,
+};

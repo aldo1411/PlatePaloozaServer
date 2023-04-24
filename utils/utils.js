@@ -1,21 +1,10 @@
-import mongoose from "mongoose"
-
-/**
- * checks if a mongo string id is valid
- * @param {String} id id in string format
- * @returns true if id is valid, otherwise false
- */
-const checkMongoId = (id) => {
- return mongoose.Types.ObjectId.isValid(id) 
-}
-
 /**
  * checks if there are changes between two objects, if there are any changes
- * it returns a object with the updated attributes and the not updated attributes 
+ * it returns a object with the updated attributes and the not updated attributes
  * and updatedAt attribute and modefied attribute, if not, returns a null
  * @param {*} existing the existing object to compare
  * @param {*} updated the updated object to compare
- * @returns object ready to use on update function, or null
+ * @return object ready to use on update function, or null
  */
 const getUpdatedObject = (existing, updated) => {
   const updatedFields = {};
@@ -32,7 +21,7 @@ const getUpdatedObject = (existing, updated) => {
   if (Object.keys(updatedFields).length > 0) {
     updatedFields.updatedAt = new Date();
     updatedFields.modified = true;
-    const { updatedAt, modified, ...rawUpdatedFields } = updatedFields;
+    const {updatedAt, modified, ...rawUpdatedFields} = updatedFields;
     return {
       updatedFields: {
         ...updatedFields,
@@ -43,28 +32,27 @@ const getUpdatedObject = (existing, updated) => {
   } else {
     return null;
   }
-}
+};
 
 
 const userIsAuthor = (userId, existingObject) => {
-  if(existingObject.author.toString() === userId){
-    return true
-  }else{
-    return false
+  if (existingObject.author.toString() === userId) {
+    return true;
+  } else {
+    return false;
   }
-}
+};
 
 const userIsAdmin = (roles) => {
-  if(roles.some(role => role.name === 'admin')){
-    return true
-  }else{
-    return false
+  if (roles.some((role) => role.name === 'admin')) {
+    return true;
+  } else {
+    return false;
   }
-}
+};
 
 export {
-  checkMongoId,
   getUpdatedObject,
   userIsAuthor,
-  userIsAdmin
-}
+  userIsAdmin,
+};

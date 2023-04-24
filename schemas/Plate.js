@@ -1,30 +1,30 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const plateSchema = new mongoose.Schema({
   unsubscribed: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   active: {
     type: Boolean,
     required: false,
-    default: true
+    default: true,
   },
   createdAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   modified: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   name: {
     type: String,
@@ -32,20 +32,20 @@ const plateSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   plateType: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'PlateType'
+    ref: 'PlateType',
   },
   ingredients: {
     type: [],
-    required: true
+    required: true,
   },
 }, {
   collection: 'Plates',
 });
 
-const Plate = mongoose.model('Plate', plateSchema)
+const Plate = mongoose.model('Plate', plateSchema);
 
-export default Plate
+export default Plate;

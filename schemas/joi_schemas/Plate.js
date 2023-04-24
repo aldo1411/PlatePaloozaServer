@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi'
+import Joi from '@hapi/joi';
 
 const plateSchema = Joi.object({
   name: Joi.string().required().max(50).min(1),
@@ -14,5 +14,5 @@ const plateUpdateSchema = Joi.object({
 
 export {
   plateSchema,
-  plateUpdateSchema
+  plateUpdateSchema,
 };

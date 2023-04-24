@@ -1,39 +1,39 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const roleSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     required: false,
-    default: true
+    default: true,
   },
   baja: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   createdAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   modified: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   name: {
     type: String,
     required: true,
-  }
+  },
 }, {
   collection: 'roles',
 });
 
-const Role = mongoose.model('Role', roleSchema)
+const Role = mongoose.model('Role', roleSchema);
 
-export default Role
+export default Role;

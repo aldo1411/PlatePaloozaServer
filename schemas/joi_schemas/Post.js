@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi'
+import Joi from '@hapi/joi';
 
 const postSchema = Joi.object({
   description: Joi.string().required().max(300).min(1),
@@ -9,9 +9,9 @@ const postSchema = Joi.object({
 const postUpdateSchema = Joi.object({
   description: Joi.string().max(300).min(1),
   image: Joi.string(),
-})
+});
 
 export {
   postSchema,
-  postUpdateSchema
+  postUpdateSchema,
 };

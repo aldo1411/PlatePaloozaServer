@@ -1,36 +1,36 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     required: false,
-    default: true
+    default: true,
   },
   baja: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   createdAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   modified: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   updatedAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   roles: [{
     required: false,
     default: [],
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Role'
+    ref: 'Role',
   }],
   userName: {
     type: String,
@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
   birthday: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   email: {
     type: String,
@@ -60,11 +60,11 @@ const userSchema = new mongoose.Schema({
   profilePic: {
     type: String,
     required: false,
-  }
+  },
 }, {
   collection: 'Users',
 });
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
-export default User
+export default User;

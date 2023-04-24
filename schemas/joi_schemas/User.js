@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi'
+import Joi from '@hapi/joi';
 
 const userSchema = Joi.object({
   id: Joi.string(),
@@ -8,12 +8,12 @@ const userSchema = Joi.object({
   birthDay: Joi.date().required(),
   email: Joi.string().required().email(),
   password: Joi.string().required(),
-  image: Joi.string().required()
+  image: Joi.string().required(),
 });
 
 const userToRoleSchema = Joi.object({
   userName: Joi.string().required(),
-  roleName: Joi.string().required()
+  roleName: Joi.string().required(),
 });
 
 const updateUserSchema = Joi.object({
@@ -23,11 +23,11 @@ const updateUserSchema = Joi.object({
   birthDay: Joi.date(),
   email: Joi.string().email(),
   password: Joi.string(),
-  image: Joi.string()
+  image: Joi.string(),
 });
 
 export {
   userSchema,
   userToRoleSchema,
-  updateUserSchema
+  updateUserSchema,
 };
