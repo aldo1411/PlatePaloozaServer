@@ -1,6 +1,6 @@
 import Post from '../schemas/Post.js'
 import { postSchema, postUpdateSchema } from '../schemas/joi_schemas/Post.js'
-import { noContentMessage, succeslfullRequestMessage, somethigWentWrongMessage, createdMessage, notFoundMessage, updatedMessage, badRequestMessage, nonUpdatedFields, alreadyUnactive, deletedMessage, forbiddenAccessMessage } from "../utils/messages.js"
+import { alreadyActive, noContentMessage, succeslfullRequestMessage, somethigWentWrongMessage, createdMessage, notFoundMessage, updatedMessage, badRequestMessage, nonUpdatedFields, alreadyUnactive, deletedMessage, forbiddenAccessMessage } from "../utils/messages.js"
 import { searchPostsByDescription } from '../utils/postsUtils.js'
 import { getUpdatedObject, userIsAdmin, userIsAuthor } from "../utils/utils.js"
 

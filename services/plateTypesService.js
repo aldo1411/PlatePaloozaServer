@@ -1,7 +1,7 @@
 import PlateType from "../schemas/PlateType.js"
 import { plateTypeSchema, plateTypeUpdateSchema } from "../schemas/joi_schemas/PlateType.js"
 import { searchPlateTypeByDescription } from "../utils/plateTypeUtils.js"
-import { noContentMessage, succeslfullRequestMessage, alreadyExistsMessage, somethigWentWrongMessage, createdMessage, userInfoDamagedMessage, notFoundMessage, updatedMessage, badRequestMessage, nonUpdatedFields, updatedObjectAlreadyExistsMessage, alreadyActive, alreadyUnactive } from "../utils/messages.js"
+import { noContentMessage, succeslfullRequestMessage, alreadyExistsMessage, somethigWentWrongMessage, createdMessage, notFoundMessage, updatedMessage, badRequestMessage, nonUpdatedFields, updatedObjectAlreadyExistsMessage, alreadyActive, alreadyUnactive } from "../utils/messages.js"
 import { getUpdatedObject } from "../utils/utils.js"
 
 /**

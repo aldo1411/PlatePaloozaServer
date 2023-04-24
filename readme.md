@@ -68,7 +68,6 @@ Tech stack used:
 Database diagram: see ``` database_diagram.jpg ``` file
 
 
-
 ## API Reference
 
 ### **Users and Roles**
@@ -407,7 +406,7 @@ The objects that go in the array of ingredients **must** follow the following st
 
 ### ***Update plate***
 
-This endpoint will update an existing plate and will check if the plate exists, if the new updated data does'nt correspond to another plate on database, if the new data does'nt change anything from the plate to update and will validate if the data passed through the body is correct
+This endpoint will update an existing plate and will check if the plate exists, if the new data does'nt change anything from the plate to update and will validate if the data passed through the body is correct
 
 ```http
   PATCH /api/plates/${id}
@@ -459,7 +458,7 @@ This endpoint will set the property "active" to false from plate on database, th
 This endpoint will set the property "active" to true from plate on database, this plate will appear again get requests
 
 ```http
-  PATCH /api/difficulties/unarchieve/${id}
+  PATCH /api/plates/unarchieve/${id}
 ```
 
 | Parameters | Type     | Description                        |
@@ -472,7 +471,7 @@ This endpoint will set the property "active" to true from plate on database, thi
 -------------------------------------------------------------------
 <br />
 
-### ***Activate plate***
+### ***Delete plate***
 
 This endpoint will delete a plate from database
 
@@ -572,7 +571,7 @@ This endpoint will add one like to the post desired.
 This endpoint will subscribe one like to the post desired.
 
 ```http
-  PATCH /api/posts/likes/add/:id
+  PATCH /api/posts/likes/substract/:id
 ```
 
 | Parameters | Type     | Description                 |
@@ -601,17 +600,17 @@ This endpoint will set the property "active" to false from post on database, thi
 -------------------------------------------------------------------
 <br />
 
-### ***Unarchieve plate***
+### ***Unarchieve post***
 
-This endpoint will set the property "active" to true from plate on database, this plate will appear again get requests
+This endpoint will set the property "active" to true from post on database, this post will appear again get requests
 
 ```http
-  PATCH /api/difficulties/unarchieve/${id}
+  PATCH /api/posts/unarchieve/${id}
 ```
 
 | Parameters | Type     | Description                        |
 | :--------  | :------- | :--------------------------------- |
-| `id`       | `string` | **Required**. id from plate        |
+| `id`       | `string` | **Required**. id from post         |
 
 
 <br />
@@ -630,6 +629,115 @@ This endpoint will delete a post from database
 | Parameters | Type     | Description                        |
 | :--------  | :------- | :--------------------------------- |
 | `id`       | `string` | **Required**. id from post         |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### **Comments**
+
+### ***Post comment***
+
+This endpoint will create a comment
+
+```http
+  POST /api/comments/?postId
+```
+
+| Body         | Type     | Description                           |
+| :----------- | :------- | :------------------------------------ |
+| `desciption` | `string` | **Required**. content of the comment  |
+
+| Query        | Type     | Description                           |
+| :----------- | :------- | :------------------------------------ |
+| `postId`     | `string` | **Required**. post id where the comment is being posted  |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Like comment***
+
+This endpoint will add one like to the comment desired.
+
+```http
+  PATCH /api/comments/likes/add/:id
+```
+
+| Parameters | Type     | Description                    |
+| :--------  | :------- | :--------------------------    |
+| `id`       | `string` | **Required**. id from comment  |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Unlike comment***
+
+This endpoint will subscribe one like to the comment desired.
+
+```http
+  PATCH /api/comments/likes/substract/:id
+```
+
+| Parameters | Type     | Description                    |
+| :--------  | :------- | :--------------------------    |
+| `id`       | `string` | **Required**. id from comment  |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Archieve comment***
+
+This endpoint will set the property "active" to false from comment on database, this comment will no longer apear on get request from posts
+
+```http
+  PATCH /api/comments/archieve/${id}
+```
+
+| Parameters | Type     | Description                          |
+| :--------  | :------- | :---------------------------------   |
+| `id`       | `string` | **Required**. id from comment        |
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Unarchieve comment***
+
+This endpoint will set the property "active" to true from comment on database, this comment will appear again get requests
+
+```http
+  PATCH /api/comments/unarchieve/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from comment        |
+
+
+<br />
+
+-------------------------------------------------------------------
+<br />
+
+### ***Delete comment***
+
+This endpoint will delete a comment from database
+
+```http
+  DELETE /api/comments/${id}
+```
+
+| Parameters | Type     | Description                        |
+| :--------  | :------- | :--------------------------------- |
+| `id`       | `string` | **Required**. id from comment      |
 
 <br />
 

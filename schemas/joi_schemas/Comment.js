@@ -1,8 +1,7 @@
 import Joi from '@hapi/joi'
 
-const commmentSchema = Joi.object({
-  comment: Joi.string().required().max(300).min(1),
-  author: Joi.string().required()
+const commentSchema = Joi.object({
+  description: Joi.string().required().max(300).min(1),
 });
 
-export default commmentSchema;
+export default commentSchema;

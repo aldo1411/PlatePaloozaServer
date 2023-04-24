@@ -11,9 +11,47 @@ const searchPostsByDescription = async (description) => {
 
   if (description && description.trim() !== ''){
     const query = new RegExp(description, 'i')
-    posts = await Post.find({ description: query, active: true, unsubscribed: false }).populate({path: 'plate', select: '-_id'}).populate({path: 'comments', })
+    posts = await Post.find({ description: query, active: true, unsubscribed: false })
+    .select('-_id -active -unsubscribed -modified, -author -modified -createdAt -updatedAt')
+    .populate({
+      path: 'plate',
+      match: { active: true, }, //TODO add: unsubscribed: false when database is cleared
+      select: '-_id -modified -author -createdAt -updatedAt',
+      populate: {
+        path: 'plateType',
+        select: 'description -_id'
+      }
+    })
+    .populate({
+      path: 'comments', 
+      match: { active: true },
+      select: 'description -_id -createdAt -updatedAt', 
+      populate: {
+        path: 'author',
+        select: 'userName -_id -createdAt -updatedAt',
+      }
+    })
   } else{
-    posts = await Post.find() 
+    posts = await Post.find({ active: true, unsubscribed: false })
+    .select('-_id -active -unsubscribed -modified, -author -modified -createdAt -updatedAt')
+    .populate({
+      path: 'plate',
+      match: { active: true, }, //TODO add: unsubscribed: false when database is cleared
+      select: '-_id -modified -author -createdAt -updatedAt',
+      populate: {
+        path: 'plateType',
+        select: 'description -_id'
+      }
+    })
+    .populate({
+      path: 'comments', 
+      match: { active: true },
+      select: 'description -_id', 
+      populate: {
+        path: 'author',
+        select: 'userName -_id',
+      }
+    })
   }
 
   return posts 

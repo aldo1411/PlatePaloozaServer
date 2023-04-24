@@ -11,9 +11,19 @@ const searchPlatesByName = async (name) => {
 
   if (name && name.trim() !== ''){
     const query = new RegExp(name, 'i')
-    plates = await Plate.find({ name: query, active: true, unsubscribed: false }).populate({path: 'plateType', select: '-_id description'})
+    plates = await Plate.find({ name: query, active: true})
+    .select('-_id -active -unsubscribed -modified, -author -modified -createdAt -updatedAt')
+    .populate({
+      path: 'plateType', 
+      select: '-_id description'
+    })  
   } else{
-    plates = await Plate.find() 
+    plates = await Plate.find({ active: true})
+    .select('-_id -active -unsubscribed -modified, -author -modified -createdAt -updatedAt')
+    .populate({
+      path: 'plateType', 
+      select: '-_id description'
+    })
   }
 
   return plates 

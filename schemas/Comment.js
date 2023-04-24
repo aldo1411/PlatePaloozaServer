@@ -21,9 +21,14 @@ const commentSchema = new mongoose.Schema({
     required: false,
     default: false
   },
-  comment: {
+  description: {
     type: String,
     required: true,
+  },
+  likes: {
+    type: Number,
+    required: false,
+    default: 0
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
